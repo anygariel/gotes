@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>GOTES | CATATAN MEMO</title>
+        <style>
+            *{
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+            }
+            body{
+                max-width: 435px;
+                margin: 0 auto;
+                background: #fff;
+                color:#000;
+                line-height: 1.5;
+            }
+            .navbar{
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .navbar{
+                padding: 15px;
+            }
+            .navbar h1{
+                font-size: 24px;
+            }
+            .btn{
+                background: #000;
+                color:#fff;
+                border: none;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 10px;
+                border-radius: 8px;
+            }
+            .card{
+                background: #f2f2f2;
+                padding: 15px;
+                border-radius: 10px;
+                color: #000;
+            }
+            .title h2{
+                font-size: 18px;
+            }
+            .mb-3{
+                margin-bottom: 15px;
+            }
+            .f-control,
+            .editorJud{
+                background: #f2f2f2;
+                padding: 15px;
+                border: none;
+                width: 100%;
+                outline: 0;
+            }
+            .editor{
+                background: #f2f2f2;
+                padding: 15px;
+                border: none;
+                width: 100%;
+                outline: 0;
+            }
+            .editorJud{
+                border-radius: 10px;
+            }
+            input::placeholder{
+                color: #000;
+            }
+            .dates{
+                font-size: 14px;
+                margin-top: 10px;
+                font-weight: bold;
+            }
+            .toolbar{
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: #fff;
+                border: 1px solid #f2f2f2;
+            }
+            .toolbar button{
+                padding: 10px;
+                background: transparent;
+                margin: 0 5px ;
+                border: none;
+                font-weight: bold;
+                font-size: 16px;
+            }
+            .tulis{
+                min-height: 20px;
+            }
+            .judul {
+                font-weight: bold;
+                font-size: 24px;
+            }
+            .glass{
+                padding: 15px;
+            }
+            .ints{ 
+                margin: 0 15px;
+            }
+            .clicked{
+                color: #000;
+                text-decoration: none;
+            }
+            .delclicked{
+                color: red;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="navbar">
+            <h1>📋 GOTES</h1>
+            <div>
+                <a href="index.html" class="btn">Rumah</a>
+            </div>
+        </div>
+        <div class="glass">
+            <div class="mb-3">
+                <div class="panel">
+            <div class="mb-3">
+                <h3>Catatan</h3>
+            </div>
+                    <div class="judul mb-3" id="juduledit"></div>
+                    <div class="tulis" id="editor"></div>
+                    <div class="dates" id="dates"></div>
+                        <script type="text/javascript">
+                const urlParams = new URLSearchParams(window.location.search);
+                const itemIdToEdit = urlParams.get('id'); // Mengambil nilai dari parameter 'id'
+            
+                let locsd = localStorage.getItem(itemIdToEdit);
+                
+                let explode = locsd;
+                let results = explode.split('[~~NYGWAPES|NYGNOTES~~]');
+                document.getElementById('editor').innerHTML = results[1];
+                document.getElementById('juduledit').innerHTML = results[0];
+                document.getElementById('dates').innerHTML = results[2];
+                function deletesItem(item){
+                    localStorage.removeItem(item);
+                    window.location.href = "index.html";
+                }
+                function rebeccs(id){
+                const cardContainer = document.createElement('div');
+                cardContainer.classList.add('ints', 'mb-3');
+                const newLink = document.createElement('a');
+                newLink.href = "ubah.html?id="+id;
+                newLink.textContent = " • Ubah";
+                newLink.classList.add('clicked');
+                
+                // 1. Create the anchor element
+                const newLink2 = document.createElement('a');
+                newLink2.href = "#"+id;
+                newLink2.textContent = "Hapus ";
+                newLink2.classList.add('delclicked');
+                newLink2.addEventListener('click', function(event) {
+                    event.preventDefault(); 
+                    deletesItem(id);
+                });
+                // Gabungkan semua ke kontainer utama
+                cardContainer.appendChild(newLink2);
+                cardContainer.appendChild(newLink);
+                return cardContainer;
+            }
+            const myCard = rebeccs(itemIdToEdit);
+            document.body.appendChild(myCard);
+                        </script>
+                </div>
+            </div>
+        </div>
+        <div style="min-height:40px;"></div>
+    </body>
+</html>

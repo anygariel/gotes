@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>GOTES | CATATAN MEMO</title>
+        <style>
+            *{
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+            }
+            body{
+                max-width: 435px;
+                margin: 0 auto;
+                background: #fff;
+                color:#000;
+                line-height: 1.5;
+            }
+            .navbar{
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .navbar{
+                padding: 15px;
+            }
+            .navbar h1{
+                font-size: 24px;
+            }
+            .btn{
+                background: #000;
+                color:#fff;
+                border: none;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 10px;
+                border-radius: 8px;
+            }
+            .glass{
+                padding: 15px;
+            }
+            .glass h2{
+                margin-bottom: 10px;
+            }
+            .panel-as{
+                margin-bottom: 15px;
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: left;
+                align-items: center;
+            }
+            .panel-as .ico{
+                margin-right: 10px;
+                font-size: 24px;
+            }
+            #stoolbar_ny{
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="navbar">
+            <h1>📋 GOTES</h1>
+            <div>
+                <a href="index.html" class="btn">Rumah</a>
+            </div>
+        </div>
+        <div class="glass">
+            <h2>Setup</h2>
+            <div class="panel-as">
+                <div class="ico">♻️</div> 
+                <div class="tombol">
+                    <a onclick="clearAllData()" class="panel-click">
+                        Bersihkan Semua Catatan!
+                    </a>
+                </div>
+            </div>
+            <div class="panel-at">
+                <b>Applications:</b>
+                <div class="at">
+                    Versi 0.3.25.190-Default
+                </div>
+                <b>Contact Us:</b>
+                <div class="surl">
+                    Builder: <b>NYGWAPES Dev.</b><br>
+                    Email: neilaffyofficial@gmail.com
+                    <br>©2025
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function clearAllData(){
+                localStorage.clear();
+                window.location.href = "index.html";
+            }
+        </script>
+    </body>
+</html>   

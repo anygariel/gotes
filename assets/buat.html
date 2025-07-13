@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>GOTES | CATATAN MEMO</title>
+        <style>
+            *{
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+            }
+            body{
+                max-width: 435px;
+                margin: 0 auto;
+                background: #fff;
+                color:#000;
+                line-height: 1.5;
+            }
+            .navbar{
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .navbar{
+                padding: 15px;
+            }
+            .navbar h1{
+                font-size: 24px;
+            }
+            .btn{
+                background: #000;
+                color:#fff;
+                border: none;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 10px;
+                border-radius: 8px;
+            }
+            .card{
+                background: #f2f2f2;
+                padding: 15px;
+                border-radius: 10px;
+                color: #000;
+            }
+            .title h2{
+                font-size: 18px;
+            }
+            .mb-3{
+                margin-bottom: 15px;
+            }
+            .f-control,
+            .editor{
+                background: #f2f2f2;
+                padding: 15px;
+                border: none;
+                width: 100%;
+                outline: 0;
+            }
+            .editor{
+                border-radius: 10px;
+            }
+            input::placeholder{
+                color: #000;
+            }
+            .dates{
+                font-size: 14px;
+                margin-top: 10px;
+                font-weight: bold;
+            }
+            .toolbar{
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: #fff;
+                border: 1px solid #f2f2f2;
+            }
+            .toolbar button{
+                padding: 10px;
+                background: transparent;
+                margin: 0 5px ;
+                border: none;
+                font-weight: bold;
+                font-size: 16px;
+                
+            }
+            .tulis{
+                min-height: 360px;
+            }
+            .judul {
+                font-weight: bold;
+            }
+            .glass{
+                padding: 15px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="navbar">
+            <h1>📋 GOTES</h1>
+            <div>
+                <a href="index.html" class="btn">Simpan</a>
+            </div>
+        </div>
+        <div class="glass">
+            <div class="mb-3">
+                <div class="panel">
+                    <div style="margin-bottom:10px;">
+                        <h3>Judul</h3>
+                    </div>
+                    <div class="editor judul mb-3" id="juduledit" contenteditable="true">
+                        
+                    </div>
+                    <div style="margin-bottom:10px;">
+                        <h3>Tulis</h3>
+                    </div>
+                    <div class="editor tulis" id="editor" contenteditable="true">
+                        
+                    </div>
+            
+                    <form id="myForm" method="post" action="" style="margin-top: 15px;">
+                        <input type="text" name="itemes" id="itemes" style="display:none;"/>
+                        <input type="text" name="judul" id="judul" class="f-control" style="display:none;"/>
+                        <textarea id="notes" class="f-control" rows="4" style="width: 100%;display:none;" name="notes"></textarea><br>
+                        <button type="submit" name="publik" id="saving" style="display:none;">Submit</button>
+                    </form>
+                    <div id="toolbars">
+                        <div class="toolbar">
+                            <button onclick="format('bold')"><b>B</b></button>
+                            <button onclick="format('italic')"><i>I</i></button>
+                            <button onclick="format('underline')"><u>U</u></button>
+                            <button onclick="format('justifyLeft')">Left</button>
+                            <button onclick="format('justifyCenter')">Center</button>
+                            <button onclick="format('justifyRight')">Right</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+        function format(command) {
+            document.execCommand(command, false, null);
+        }
+        const date = new Date();
+
+        // Mengambil komponen waktu
+        const jam = date.getHours().toString().padStart(2, '0');
+        const menit = date.getMinutes().toString().padStart(2, '0');
+        const hari = date.getDate().toString().padStart(2, '0');
+        
+        // Catatan: getMonth() mengembalikan 0-11, jadi tambahkan 1
+        const bulan = (date.getMonth() + 1).toString().padStart(2, '0'); 
+        const tahun = date.getFullYear();
+        
+        // Menggabungkan dalam format 'H:i d mY'
+        const waktuTerformat = `${jam}:${menit} ${hari} ${bulan}${tahun}`;
+        function resvo(){
+            let loc = localStorage.getItem('default');
+            if(loc > 0){
+                let locs = parseInt(loc) + 1;
+                localStorage.setItem('default',locs);
+            }else{
+                let locs = 1;
+                localStorage.setItem('default',locs);
+                window.location.href = "buat.html";
+            }
+            return loc;
+        }
+        document.getElementById('itemes').value = resvo();
+        function sunting() {
+            const editorContent = document.getElementById('editor').innerHTML;
+            let teks = document.getElementById('notes').value = editorContent;
+            const juduled = document.getElementById('juduledit').innerHTML;
+            let judul = document.getElementById('judul').value = juduled;
+            let itemly = document.getElementById('itemes').value;
+            if(judul.length === 0){
+                console.log(judul);
+            }else{
+                localStorage.setItem(itemly,judul + "[~~NYGWAPES|NYGNOTES~~]" + teks + "[~~NYGWAPES|NYGNOTES~~]" + waktuTerformat + "[~~NYGWAPES|NYGNOTES~~]" + itemly);
+            }
+        }
+        setInterval(sunting, 100); 
+        </script>
+    </body>
+</html>
